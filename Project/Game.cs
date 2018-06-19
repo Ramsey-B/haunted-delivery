@@ -35,15 +35,17 @@ namespace CastleGrimtol.Project
 
     public void CreateRooms()
     {
-      Room frontDoor = new Room("front door", "Theres no answer. Nothing... The russling in the forrest seems to get louder... You know again, but nothing. It now sounds as if the russling sounds are coming towards you. They're getting faster and faster.");
+      Room knock = new Room("knock", "You approach the door and knock. There's no answer. The only noise is some russling in the bushes...");
+      Room frontDoor = new Room("front door", "Theres no answer. Nothing... The russling in the forrest seems to get louder... You knock again, but nothing. It now sounds as if the russling sounds are coming towards you. They're getting faster and faster. The door then creeks open...");
       Room enterance = new Room("enterance", "You enter the house, and the door slams shut. It's old and dusty, as if abandoned long ago. Hopefully, its not a prank, you can't afford to waste the gas! Before you is a large staircase that seems to spiral off into a dark abyss. To your left is a long dark hallway that if you listen carefully you hushed and anguished 'shhhh'. To your right is an old and cracked door.");
       Room darkHall = new Room("dark hallway", "You carefully navigate down the hallway. As you get further you see two doors. The first door is old, with peeling paint. The second door looks the same as the first but its clear now, the sound from earlier and a faint weeping noise are emminating from the room.");
       Room shia = new Room("mysterious room", "The door creeks open. Before you stands an axe weilding figure in a bloody tuxedo. He appears to be eating the leg of another delivery driver!");
       Room shia2 = new Room("enter mysterious room", "As you enter, you hear a loud 'Shia LaBeouf', and before you stands actual cannibal Shia LaBeouf! He drops the leg of the poor Pizza Hut driver, he gets down on all fours and prepares to sprint. He's staring right at you.");
-      Room shia3 = new Room("leave shia room", "You stare back... (you must be mad)... Shia's eyes begin to water. He stares more and more intently... Finally he blinks. Out of respect Shia LaBeouf joins your party! He's now a useable Item!");
+      Room shia3 = new Room("look at shia", "You stare back... (you must be mad)... Shia's eyes begin to water. He stares more and more intently... Finally he blinks. Out of respect Shia LaBeouf joins your party! He's now a useable Item!");
+      Room shiaDeath = new Room("leave mystery room", "You begin to leave. Shia LaBeouf begins sprinting at you. Hes gaining on you! You head for your car but you're all turned around! Theres blood on his face! Oh my god, there's blood everywhere! He's brandishing a knife, it's Shia Labeouf! You lack Jiu Jitsu skills to survive. You're never heard from again.");
       Room puzzle = new Room("puzzle room", "You walk in the room, theres an old, decrepit man sitting in the corner. He rises slowly. He says in a feeble voice 'If you can answer this riddle, I will help you find the one you seek... The more you cut me, the more I grow. What am I?'");
       Room puzzleRight = new Room("puzzle right", "He smirks and proceeds to open the next door. As you walk through the floor boards begin shreek. They break, sending you falling into a dark cavern of certain death! The last thing you hear is the old man yell 'I warned you!'");
-      Room puzzleWrong = new Room("puzzle wrong", "The old man appears angry. He begins yelling 'I'm a hole! I am a hole!' He then throws the next door open and it breaks from the hinges. It lands on the floor breaking the floor boards and opening a massive chasm that swallows the old man whole. The door however appears to make a bridge accross.");
+      Room puzzleWrong = new Room("puzzle wrong", "The old man appears angry. He begins yelling 'A hole! I am a hole!' He then throws the next door open and it breaks from the hinges. It lands on the floor breaking the floor boards and opening a massive chasm that swallows the old man whole. The door however appears to make a bridge accross.");
       Room chasmRoom = new Room("chasm room", "You gingerly but safely cross the door. The room has two doors. The door to your left seems to lead towards a room that has also been partially swallowed by the hole. The door to your right is seems fairly normal for this house.");
       Room choiceRoom = new Room("choice room", "You walk into the room to see a another dark cavern. There appears to be a board balance on one end by what appears to be a gun, and on the other end is a flashlight");
       Room chasmRoom2 = new Room("chasm room again", "You pass back through the chasm room and notice the door is gone. The only choice left is to go through the other door. It appears to be long dark hallway. At the end is door. You open it, only to notice. It's a hidden door leading back to the main enterance.");
@@ -70,8 +72,9 @@ namespace CastleGrimtol.Project
       Room returnCar = new Room("return to car", "You make it safely back to your car. It starts up and you drive off... But somethings wrong! The ride is terribly rough. You hear a loud grinding noise. Just as the house disappears behind the trees, your car comes to a halt. You get out to discover your tires were shredded off. They must've been slashed! Out from the bushes appears the Domino's noid. Yes, that noid. He does not tolerate failed deliveries. You're never heard from again.");
 
       AddRooms();
+      BuildExits();
 
-       void AddRooms()
+      void AddRooms()
       {
         Rooms.Add(frontDoor);
         Rooms.Add(enterance);
@@ -79,6 +82,7 @@ namespace CastleGrimtol.Project
         Rooms.Add(shia);
         Rooms.Add(shia2);
         Rooms.Add(shia3);
+        Rooms.Add(shiaDeath);
         Rooms.Add(puzzle);
         Rooms.Add(puzzleRight);
         Rooms.Add(puzzleWrong);
@@ -103,6 +107,55 @@ namespace CastleGrimtol.Project
         Rooms.Add(continuePlayDead);
         Rooms.Add(darkTunnel);
         Rooms.Add(escapeTunnel);
+        Rooms.Add(tunnelDoor);
+        Rooms.Add(standup);
+        Rooms.Add(cry);
+        Rooms.Add(returnCar);
+      }
+
+      void BuildExits()
+      {
+        knock.AddExit("knock", frontDoor);
+        knock.AddExit("return to car", returnCar);
+        frontDoor.AddExit("reurn to car", returnCar);
+        frontDoor.AddExit("enter house", enterance);
+        enterance.AddExit("dark hallway", darkHall);
+        enterance.AddExit("upstairs", upStairs);
+        enterance.AddExit("door to right", emptyRoom);
+        enterance.AddExit("reurn to car", returnCar);
+        darkHall.AddExit("second door", shia);
+        darkHall.AddExit("first door", puzzle);
+        darkHall.AddExit("return to enterance", enterance);
+        shia.AddExit("second room", shia2);
+        shia.AddExit("back", darkHall);
+        shia2.AddExit("in room", shia3);
+        shia2.AddExit("back", shiaDeath);
+        puzzle.AddExit("back", darkHall);
+        puzzleWrong.AddExit("across", chasmRoom);
+        chasmRoom.AddExit("left door", choiceRoom);
+        chasmRoom.AddExit("right door", returnHall);
+        choiceRoom.AddExit("back", chasmRoom2);
+        returnHall.AddExit("back", enterance);
+returnHall
+emptyRoom
+upStairs
+scratchingRoom
+approachArm
+takeEnvelope
+partyRoom
+crazyMan
+endHall
+backHall
+leftDoor
+rightDoor
+underDesk
+playDead
+continuePlayDead
+darkTunnel
+escapeTunnel
+tunnelDoor
+standup
+cry
       }
     }
   }
