@@ -89,6 +89,30 @@ namespace CastleGrimtol.Project
 				CurrentPlayer.Inventory.Add(shiaLabeouf);
 			}
     }
+
+    public void TakeItem(string choice)
+    {
+      Item itemChoice = CurrentRoom.Items.Find(item => {
+        return item.Name == choice;
+      });
+      if(itemChoice == null) {
+        Console.WriteLine("You attempt to grab the "+choice+" and now realize you're the reason companies drug test.");
+      }
+      else {
+        if(itemChoice.Name == "flashlight" || itemChoice.Name == "glasses" && CurrentRoom.Name == "choice room") {
+          CurrentPlayer.Inventory.Add(itemChoice);
+          Console.WriteLine("You pick up the flashlight, but the board shifts. The glasses slide off into the dark!");
+          CurrentRoom.Items.RemoveAll(item => {
+            return item.Name == "flashlight" || item.Name == "glasses";
+            });
+        }
+        else {
+          CurrentPlayer.Inventory.Add(itemChoice);
+          CurrentRoom.Items.Remove(itemChoice);
+          Console.WriteLine("You picked up a " +itemChoice.Name);
+        }
+      }
+    }
     public void UseItem(string itemName)
     {
 
