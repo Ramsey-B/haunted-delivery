@@ -48,7 +48,11 @@ namespace CastleGrimtol.Project
     public string UserInput()
     {
       Console.WriteLine("What do you do?");
-      Console.WriteLine("choices: ");
+      if(CurrentRoom.Name == "puzzle room" || CurrentRoom.Name == "tunnel end") {
+        Console.WriteLine("Answer the puzzle or turn back: ");
+      } else {
+        Console.WriteLine("Choices: ");
+      }
       foreach (string key in CurrentRoom.Exits.Keys)
       {
         Console.WriteLine(key);
@@ -57,8 +61,16 @@ namespace CastleGrimtol.Project
       return input;
     }
 
-    public void CheckChoice(string input)
+    public void CheckChoice(string query)
     {
+      string input = "";
+      foreach(string key in CurrentRoom.Exits.Keys)
+      {
+        if(key.Contains(query))
+        {
+          input += key;
+        }
+      }
       if (CurrentRoom.Exits.ContainsKey(input))
       {
         CurrentRoom = CurrentRoom.Exits[input];
@@ -275,59 +287,59 @@ namespace CastleGrimtol.Project
 
       void BuildExits()
       {
-        start.AddExit("knock", knock);
-        start.AddExit("return to car", returnCar);
-        knock.AddExit("knock", frontDoor);
-        knock.AddExit("return to car", returnCar);
-        frontDoor.AddExit("return to car", returnCar);
-        frontDoor.AddExit("enter house", enterance);
-        enterance.AddExit("dark hallway", darkHall);
-        enterance.AddExit("upstairs", upStairs);
-        enterance.AddExit("door to right", emptyRoom);
-        enterance.AddExit("return to car", returnCar);
-        darkHall.AddExit("second door", shia);
-        darkHall.AddExit("first door", puzzle);
-        darkHall.AddExit("back", enterance);
-        shia.AddExit("enter", shia2);
-        shia.AddExit("back", darkHall);
-        shia2.AddExit("stare back", shia3);
-        shia2.AddExit("back", shiaDeath);
-        shia3.AddExit("leave", darkHall);
-        puzzle.AddExit("back", darkHall);
-        puzzleWrong.AddExit("cross", chasmRoom);
-        chasmRoom.AddExit("left door", choiceRoom);
-        chasmRoom.AddExit("right door", returnHall);
-        choiceRoom.AddExit("back", chasmRoom2);
-        chasmRoom2.AddExit("enter", returnHall);
-        returnHall.AddExit("enter", enterance);
-        emptyRoom.AddExit("back", enterance);
-        upStairs.AddExit("back", enterance);
-        upStairs.AddExit("left", crazyMan);
-        upStairs.AddExit("right", scratchingRoom);
-        upStairs.AddExit("down hallway", endHall);
-        crazyMan.AddExit("back", upStairs);
-        crazyMan.AddExit("after clown", followClown);
-        scratchingRoom.AddExit("back", upStairs);
-        scratchingRoom.AddExit("towards arm", approachArm);
-        approachArm.AddExit("back", upStairs);
-        takeEnvelope.AddExit("to party room", partyRoom);
-        takeEnvelope.AddExit("back", upStairs);
-        endHall.AddExit("left", leftDoor);
-        endHall.AddExit("right", rightDoor);
-        endHall.AddExit("back", backHall);
-        endHall.AddExit("forward", lastDoor);
-        rightDoor.AddExit("under table", underDesk);
-        rightDoor.AddExit("play dead", playDead);
-        leftDoor.AddExit("back", endHall);
-        playDead.AddExit("fight", faceLady);
-        playDead.AddExit("contine playing dead", continuePlayDead);
-        continuePlayDead.AddExit("after woman", faceLady);
-        continuePlayDead.AddExit("toward tunnel", darkTunnel);
-        darkTunnel.AddExit("back", faceLady);
-        darkTunnel.AddExit("foward", endTunnel);
-        endTunnel.AddExit("back", faceLady);
-        tunnelDoor.AddExit("fight back", standup);
-        tunnelDoor.AddExit("cry", cry);
+        start.AddExit("1) knock", knock);
+        start.AddExit("2) return to car", returnCar);
+        knock.AddExit("1) knock", frontDoor);
+        knock.AddExit("2) return to car", returnCar);
+        frontDoor.AddExit("1) return to car", returnCar);
+        frontDoor.AddExit("2) enter house", enterance);
+        enterance.AddExit("1) dark hallway", darkHall);
+        enterance.AddExit("2) upstairs", upStairs);
+        enterance.AddExit("3) door to right", emptyRoom);
+        enterance.AddExit("4) return to car", returnCar);
+        darkHall.AddExit("1) second door", shia);
+        darkHall.AddExit("2) first door", puzzle);
+        darkHall.AddExit("3) back", enterance);
+        shia.AddExit("1) enter", shia2);
+        shia.AddExit("2) back", darkHall);
+        shia2.AddExit("1) stare back", shia3);
+        shia2.AddExit("2) back", shiaDeath);
+        shia3.AddExit("1) leave", darkHall);
+        puzzle.AddExit("1) back", darkHall);
+        puzzleWrong.AddExit("1) cross", chasmRoom);
+        chasmRoom.AddExit("1) left door", choiceRoom);
+        chasmRoom.AddExit("2) right door", returnHall);
+        choiceRoom.AddExit("1) back", chasmRoom2);
+        chasmRoom2.AddExit("1) enter", returnHall);
+        returnHall.AddExit("1) enter", enterance);
+        emptyRoom.AddExit("1) back", enterance);
+        upStairs.AddExit("1) back", enterance);
+        upStairs.AddExit("2) left", crazyMan);
+        upStairs.AddExit("3) right", scratchingRoom);
+        upStairs.AddExit("4) down hallway", endHall);
+        crazyMan.AddExit("1) back", upStairs);
+        crazyMan.AddExit("2) after clown", followClown);
+        scratchingRoom.AddExit("1) back", upStairs);
+        scratchingRoom.AddExit("2) towards arm", approachArm);
+        approachArm.AddExit("1) back", upStairs);
+        takeEnvelope.AddExit("1) to party room", partyRoom);
+        takeEnvelope.AddExit("2) back", upStairs);
+        endHall.AddExit("1) left", leftDoor);
+        endHall.AddExit("2) right", rightDoor);
+        endHall.AddExit("3) back", backHall);
+        endHall.AddExit("4) forward", lastDoor);
+        rightDoor.AddExit("1) under table", underDesk);
+        rightDoor.AddExit("2) play dead", playDead);
+        leftDoor.AddExit("1) back", endHall);
+        playDead.AddExit("1) fight", faceLady);
+        playDead.AddExit("2) contine playing dead", continuePlayDead);
+        continuePlayDead.AddExit("1) after woman", faceLady);
+        continuePlayDead.AddExit("2) toward tunnel", darkTunnel);
+        darkTunnel.AddExit("1) back", faceLady);
+        darkTunnel.AddExit("2) foward", endTunnel);
+        endTunnel.AddExit("1) back", faceLady);
+        tunnelDoor.AddExit("1) fight back", standup);
+        tunnelDoor.AddExit("2) cry", cry);
       }
       void CreateItems()
       {
