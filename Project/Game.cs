@@ -7,7 +7,7 @@ namespace CastleGrimtol.Project
   {
     public Room CurrentRoom { get; set; }
     public Player CurrentPlayer { get; set; }
-    public List<Room> Rooms { get; set; }
+    public List<Room> Rooms = new List<Room>();
     public Boolean Playing { get; set; }
 
     public void Reset()
@@ -78,6 +78,7 @@ namespace CastleGrimtol.Project
 
       AddRooms();
       BuildExits();
+      CreateItems();
 
       void AddRooms()
       {
@@ -173,6 +174,18 @@ namespace CastleGrimtol.Project
         endTunnel.AddExit("back", faceLady);
         tunnelDoor.AddExit("fight back", standup);
         tunnelDoor.AddExit("cry", cry);
+      }
+      void CreateItems()
+      {
+        Item flashlight = new Item("Flashlight", "This might be helpful for finding secrets");
+        Item glasses = new Item("Glasses", "Your eyesight always did seem to hurt");
+        Item shiaLabeouf = new Item("Shia Labeouf", "He's following you about thirty feet back. It's actual cannibal Shia Labeouf, and he's brandishing a knife.");
+        Item envelope = new Item("Envelope", "On the outside it reads 'Tip', but there doesn't appear to be any tip. It's just filled with 86 cents of assorted coins.");
+
+        choiceRoom.Items.Add(flashlight);
+        choiceRoom.Items.Add(glasses);
+        shia3.Items.Add(shiaLabeouf);
+        approachArm.Items.Add(envelope);
       }
     }
   }
