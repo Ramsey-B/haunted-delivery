@@ -28,6 +28,67 @@ namespace CastleGrimtol.Project
 
     }
 
+    public void Look()
+    {
+      Console.WriteLine($"{CurrentRoom.Name}: {CurrentRoom.Description}");
+      Console.WriteLine("Item(s): ");
+      if (CurrentRoom.Items.Count == 0)
+      {
+        Console.WriteLine("You're no MacGyver, there's nothing here you can use...");
+      }
+      else
+      {
+        string items = "";
+        for (int i = 0; i < CurrentRoom.Items.Count; i++)
+        {
+          items += CurrentRoom.Items[i].Name;
+        }
+        Console.WriteLine(items);
+      }
+    }
+
+    public string UserInput()
+    {
+      Console.WriteLine("What do you do?");
+      Console.WriteLine("choices: ");
+      foreach (string key in CurrentRoom.Exits.Keys)
+      {
+        Console.WriteLine(key);
+      }
+      string input = Console.ReadLine();
+      return input;
+    }
+
+    public void CheckChoice(string input)
+    {
+      if (CurrentRoom.Exits.ContainsKey(input))
+      {
+        CurrentRoom = CurrentRoom.Exits[input];
+      }
+			else if(CurrentRoom.Name == "puzzle room") 
+			{
+				if(input == "a hole")
+				{
+					CurrentRoom = Rooms[10];
+				}
+				else {
+					CurrentRoom = Rooms[11];
+				}
+			}
+      else
+      {
+        Console.Clear();
+        Console.WriteLine("I know this is hard, so lets try it again.");
+      }
+    }
+
+    public void CheckRoom()
+    {
+			if(CurrentRoom.Name == "look at shia") {
+				Item shiaLabeouf = new Item("Shia Labeouf", "He's following you about thirty feet back. It's actual cannibal Shia Labeouf, and he's brandishing a knife.");
+				CurrentPlayer.Inventory.Add(shiaLabeouf);
+			}
+    }
     public void UseItem(string itemName)
     {
 
@@ -35,7 +96,8 @@ namespace CastleGrimtol.Project
 
     public void CreateRooms()
     {
-      Room knock = new Room("knock", "You approach the door and knock. There's no answer. The only noise is some russling in the bushes...");
+      Room start = new Room("start", "You are a pizza delivery driver. You have an order to an old country house. This is a strange house. It's miles outside of town in the middle of the forrest. The house is down a long gravel road in a small forrest clearing. It's dark. Your headlights and the moon are the only sources of light. It's unusually quiet for a forrest. You arrive at an acient house that matches the address. You get out grab the order from your car.");
+      Room knock = new Room("knock", "You approach the door and knock. There's no answer. But you hear some russling in the bushes...");
       Room frontDoor = new Room("front door", "Theres no answer. Nothing... The russling in the forrest seems to get louder... You knock again, but nothing. It now sounds as if the russling sounds are coming towards you. They're getting faster and faster. The door then creeks open...");
       Room enterance = new Room("enterance", "You enter the house, and the door slams shut. It's old and dusty, as if abandoned long ago. Hopefully, its not a prank, you can't afford to waste the gas! Before you is a large staircase that seems to spiral off into a dark abyss. To your left is a long dark hallway that if you listen carefully you hushed and anguished 'shhhh'. To your right is an old and cracked door.");
       Room darkHall = new Room("dark hallway", "You carefully navigate down the hallway. As you get further you see two doors. The first door is old, with peeling paint. The second door looks the same as the first but its clear now, the sound from earlier and a faint weeping noise are emminating from the room.");
@@ -82,6 +144,8 @@ namespace CastleGrimtol.Project
 
       void AddRooms()
       {
+        Rooms.Add(start);
+        Rooms.Add(knock);
         Rooms.Add(frontDoor);
         Rooms.Add(enterance);
         Rooms.Add(darkHall);
@@ -125,6 +189,8 @@ namespace CastleGrimtol.Project
 
       void BuildExits()
       {
+        start.AddExit("knock", knock);
+        start.AddExit("return to car", returnCar);
         knock.AddExit("knock", frontDoor);
         knock.AddExit("return to car", returnCar);
         frontDoor.AddExit("return to car", returnCar);
@@ -179,12 +245,10 @@ namespace CastleGrimtol.Project
       {
         Item flashlight = new Item("Flashlight", "This might be helpful for finding secrets");
         Item glasses = new Item("Glasses", "Your eyesight always did seem to hurt");
-        Item shiaLabeouf = new Item("Shia Labeouf", "He's following you about thirty feet back. It's actual cannibal Shia Labeouf, and he's brandishing a knife.");
         Item envelope = new Item("Envelope", "On the outside it reads 'Tip', but there doesn't appear to be any tip. It's just filled with 86 cents of assorted coins.");
 
         choiceRoom.Items.Add(flashlight);
         choiceRoom.Items.Add(glasses);
-        shia3.Items.Add(shiaLabeouf);
         approachArm.Items.Add(envelope);
       }
     }
