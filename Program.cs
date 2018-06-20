@@ -23,7 +23,7 @@ namespace CastleGrimtol
         else if(userAction[0] == "h" || userAction[0] == "help") {
 
         }
-        else if(userAction[0] == "t" || userAction[0] == "take" && userAction[1] != null) {
+        else if(userAction[0] == "t" || userAction[0] == "take") {
           string choice = "";
           for (int i = 1; i < userAction.Length; i++)
           {
@@ -32,7 +32,11 @@ namespace CastleGrimtol
           game.TakeItem(choice.Trim());
         }
         else if (userAction[0] == "i" || userAction[0] == "inventory") {
-
+          Console.Clear();
+          Console.WriteLine("Inventory: ");
+          game.CurrentPlayer.Inventory.ForEach(item => {
+            Console.WriteLine(item.Name);
+          });
         }
         else if (userAction[0] == "u" || userAction[0] == "use")
         {
@@ -45,10 +49,9 @@ namespace CastleGrimtol
         }
         else
         {
-          
+          Console.Clear();
           game.CheckChoice(userChoice.Trim());
         }
-        Console.Clear();
         game.CheckRoom();
       }
     }

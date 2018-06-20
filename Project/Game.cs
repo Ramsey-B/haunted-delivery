@@ -38,12 +38,10 @@ namespace CastleGrimtol.Project
       }
       else
       {
-        string items = "";
         for (int i = 0; i < CurrentRoom.Items.Count; i++)
         {
-          items += CurrentRoom.Items[i].Name;
+          Console.WriteLine(CurrentRoom.Items[i].Name);
         }
-        Console.WriteLine(items);
       }
     }
 
@@ -65,16 +63,24 @@ namespace CastleGrimtol.Project
       {
         CurrentRoom = CurrentRoom.Exits[input];
       }
-			else if(CurrentRoom.Name == "puzzle room") 
-			{
-				if(input == "a hole")
-				{
-					CurrentRoom = Rooms[10];
-				}
-				else {
-					CurrentRoom = Rooms[11];
-				}
-			}
+      else if (CurrentRoom.Name == "puzzle room")
+      {
+        if (input.Contains("hole"))
+        {
+          Room room = Rooms.Find(r =>
+          {
+            return r.Name == "puzzle right";
+          });
+          Console.WriteLine(room.Description);
+          Console.WriteLine("You lose!");
+
+          Playing = false;
+        }
+        else
+        {
+          CurrentRoom = Rooms[11];
+        }
+      }
       else
       {
         Console.Clear();
@@ -84,80 +90,93 @@ namespace CastleGrimtol.Project
 
     public void CheckRoom()
     {
-			if(CurrentRoom.Name == "look at shia") {
-				Item shiaLabeouf = new Item("Shia Labeouf", "He's following you about thirty feet back. It's actual cannibal Shia Labeouf, and he's brandishing a knife.");
-				CurrentPlayer.Inventory.Add(shiaLabeouf);
-			}
+      if (CurrentRoom.Name == "look at shia")
+      {
+        Item shiaLabeouf = new Item("shia labeouf", "He's following you about thirty feet back. It's actual cannibal Shia Labeouf, and he's brandishing a knife.");
+        CurrentPlayer.Inventory.Add(shiaLabeouf);
+        Rooms[4].Exits.Remove("second door");
+      }
     }
 
     public void TakeItem(string choice)
     {
-      Item itemChoice = CurrentRoom.Items.Find(item => {
+      Item itemChoice = CurrentRoom.Items.Find(item =>
+      {
         return item.Name == choice;
       });
-      if(itemChoice == null) {
-        Console.WriteLine("You attempt to grab the "+choice+" and now realize you're the reason companies drug test.");
+      if (itemChoice == null)
+      {
+        Console.WriteLine("You attempt to grab the " + choice + " and now realize you're the reason companies drug test.");
       }
-      else {
-        if(itemChoice.Name == "flashlight" || itemChoice.Name == "glasses" && CurrentRoom.Name == "choice room") {
+      else
+      {
+        if (itemChoice.Name == "flashlight" || itemChoice.Name == "glasses" && CurrentRoom.Name == "choice room")
+        {
           CurrentPlayer.Inventory.Add(itemChoice);
           string otherItem = itemChoice.Name == "flashlight" ? "glasses" : "flashlight";
-          Console.WriteLine("You pick up the "+itemChoice.Name+", but the board shifts. The "+otherItem+" tumble off into the dark!");
-          CurrentRoom.Items.RemoveAll(item => {
+          Console.WriteLine("You pick up the " + itemChoice.Name + ", but the board shifts. The " + otherItem + " tumble off into the dark!");
+          CurrentRoom.Items.RemoveAll(item =>
+          {
             return item.Name == "flashlight" || item.Name == "glasses";
-            });
+          });
         }
-        else {
+        else
+        {
           CurrentPlayer.Inventory.Add(itemChoice);
           CurrentRoom.Items.Remove(itemChoice);
-          Console.WriteLine("You picked up a " +itemChoice.Name);
+          Console.WriteLine("You picked up a " + itemChoice.Name);
         }
       }
     }
     public void UseItem(string itemName)
     {
-      Item choice = CurrentPlayer.Inventory.Find(item => {
-        return item.Name == itemName;
-      });
-      if(choice.Name == "shia labeouf" && CurrentRoom.Name == "tunnel door")
+      Item choice = CurrentPlayer.Inventory.Find(item => item.Name == itemName);
+      if (choice != null)
       {
-        Console.Clear();
-        Console.WriteLine("You begin to sob uncontrollably! Seeing this, Shia Labeouf springs to action! He sprints to and begins screaming at you 'Just do it!!!' His motivation gives you the confidence you need! You begin yelling back at the lady! Things are going great... Till suddenly Shia takes an axe to the woman... He definitely just murdered the woman... The two of you leave and actual murders Shia Labeouf and his trust accomplice" +CurrentPlayer.Name+ "ride off into the sunset! You Win!!!");
-        CurrentPlayer.Inventory.Remove(choice);
-        Playing = false;
-      }
-      else if(choice.Name == "flashlight" && CurrentRoom.Name == "dark tunnel")
-      {
-        Console.Clear();
-        Console.WriteLine("The tunnel brightens! Though you kind of wish it didn't... There's dismembered body's and blood everywhere! But you notice a crack in the wall that looks like a way out!");
-        CurrentRoom.AddExit("escape tunnel", Rooms[32]);
-        CurrentPlayer.Inventory.Remove(choice);
-      }
-      else if(choice.Name == "glasses" && CurrentRoom.Name == "clock room")
-      {
-        Console.Clear();
-        Console.WriteLine("You put on the glasses. At first things are blurry, but you feel your perception rise. One clock stands out more than the rest... It's a digital clock where the numbers decend slowly down as time continues. But you notice the time is not changing, It's stuck on 1:58...");
-        CurrentPlayer.Inventory.Remove(choice);
-      }
-      else if(choice != null)
-      {
-        Console.Clear();
-        if(choice.Name == "shia labeouf")
+        if (choice.Name == "shia labeouf" && CurrentRoom.Name == "tunnel door")
         {
-          Console.WriteLine("You see him out the corner of you eye following about 30 feet back. He's down on all fours, but it's not his time yet");
-        } else if (choice.Name == "flashlight")
+          Console.Clear();
+          Console.WriteLine("You begin to sob uncontrollably! Seeing this, Shia Labeouf springs to action! He sprints to and begins screaming at you 'Just do it!!!' His motivation gives you the confidence you need! You begin yelling back at the lady! Things are going great... Till suddenly Shia takes an axe to the woman... He definitely just murdered the woman... The two of you leave and actual murders Shia Labeouf and his trust accomplice" + CurrentPlayer.Name + "ride off into the sunset! You Win!!!");
+          CurrentPlayer.Inventory.Remove(choice);
+          Playing = false;
+        }
+        else if (choice.Name == "flashlight" && CurrentRoom.Name == "dark tunnel")
         {
-          Console.WriteLine("It turns on, but you turn it off quickly feeling as though it maybe be more useful later...");
-        } else if(choice.Name == "glasses")
+          Console.Clear();
+          Console.WriteLine("The tunnel brightens! Though you kind of wish it didn't... There's dismembered body's and blood everywhere! But you notice a crack in the wall that looks like a way out!");
+          CurrentRoom.AddExit("escape tunnel", Rooms[32]);
+          CurrentPlayer.Inventory.Remove(choice);
+        }
+        else if (choice.Name == "glasses" && CurrentRoom.Name == "clock room")
         {
-          Console.WriteLine("You put them on and struggle to see. Obviously... Why would they be your prescription??? You do feel as though your perception rises... Maybe that could be useful.");
-        } else if (choice.Name == "envelope")
+          Console.Clear();
+          Console.WriteLine("You put on the glasses. At first things are blurry, but you feel your perception rise. One clock stands out more than the rest... It's a digital clock where the numbers decend slowly down as time continues. But you notice the time is not changing, It's stuck on 1:58...");
+          CurrentPlayer.Inventory.Remove(choice);
+        }
+        else
         {
-          Console.WriteLine("You open the envelope to find 86 cents in assorted coins. Who tips in change?");
+          Console.Clear();
+          if (choice.Name == "shia labeouf")
+          {
+            Console.WriteLine("You see him out the corner of you eye following about 30 feet back. He's down on all fours, but it's not his time yet");
+          }
+          else if (choice.Name == "flashlight")
+          {
+            Console.WriteLine("It turns on, but you turn it off quickly feeling as though it maybe be more useful later...");
+          }
+          else if (choice.Name == "glasses")
+          {
+            Console.WriteLine("You put them on and struggle to see. Obviously... Why would they be your prescription??? You do feel as though your perception rises... Maybe that could be useful.");
+          }
+          else if (choice.Name == "envelope")
+          {
+            Console.WriteLine("You open the envelope to find 86 cents in assorted coins. Who tips in change?");
+          }
         }
       }
-      else {
-        Console.WriteLine("You take the " +choice.Name+ " and place it in your mouth... weird...");
+      else
+      {
+        Console.WriteLine("You take the " + itemName + " and place it in your mouth... weird...");
       }
     }
 
@@ -268,17 +287,19 @@ namespace CastleGrimtol.Project
         enterance.AddExit("return to car", returnCar);
         darkHall.AddExit("second door", shia);
         darkHall.AddExit("first door", puzzle);
-        darkHall.AddExit("return to enterance", enterance);
-        shia.AddExit("second room", shia2);
+        darkHall.AddExit("back", enterance);
+        shia.AddExit("enter", shia2);
         shia.AddExit("back", darkHall);
-        shia2.AddExit("enter room", shia3);
+        shia2.AddExit("stare back", shia3);
         shia2.AddExit("back", shiaDeath);
+        shia3.AddExit("leave", darkHall);
         puzzle.AddExit("back", darkHall);
         puzzleWrong.AddExit("cross", chasmRoom);
         chasmRoom.AddExit("left door", choiceRoom);
         chasmRoom.AddExit("right door", returnHall);
         choiceRoom.AddExit("back", chasmRoom2);
-        returnHall.AddExit("back", enterance);
+        chasmRoom2.AddExit("enter", returnHall);
+        returnHall.AddExit("enter", enterance);
         emptyRoom.AddExit("back", enterance);
         upStairs.AddExit("back", enterance);
         upStairs.AddExit("left", crazyMan);
@@ -297,7 +318,7 @@ namespace CastleGrimtol.Project
         endHall.AddExit("forward", lastDoor);
         rightDoor.AddExit("under table", underDesk);
         rightDoor.AddExit("play dead", playDead);
-        leftDoor.AddExit("back", backHall);
+        leftDoor.AddExit("back", endHall);
         playDead.AddExit("fight", faceLady);
         playDead.AddExit("contine playing dead", continuePlayDead);
         continuePlayDead.AddExit("after woman", faceLady);
@@ -310,9 +331,9 @@ namespace CastleGrimtol.Project
       }
       void CreateItems()
       {
-        Item flashlight = new Item("Flashlight", "This might be helpful for finding secrets");
-        Item glasses = new Item("Glasses", "Your eyesight always did seem to hurt");
-        Item envelope = new Item("Envelope", "On the outside it reads 'Tip', but there doesn't appear to be any tip. It's just filled with 86 cents of assorted coins.");
+        Item flashlight = new Item("flashlight", "This might be helpful for finding secrets");
+        Item glasses = new Item("glasses", "Your eyesight always did seem to hurt");
+        Item envelope = new Item("envelope", "On the outside it reads 'Tip', but there doesn't appear to be any tip. It's just filled with 86 cents of assorted coins.");
 
         choiceRoom.Items.Add(flashlight);
         choiceRoom.Items.Add(glasses);
