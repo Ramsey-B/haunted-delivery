@@ -56,20 +56,25 @@ namespace CastleGrimtol.Project
       Room approachArm = new Room("approach arm", "As you approach the arm you know see its still attached to th torso under the floor boards! you cant make out what the person looks like, but you can now see that they're trying to give you can envelope!");
       Room takeEnvelope = new Room("take envelope", "You turn to leave but the hand grabs you! You stop and look. It then begins pointing frantically at another door! The door is covered in streamers and balloons. How did you miss it?");
       Room partyRoom = new Room("party room", "You open the door and are hit with a blinding light. Heaven? No. It appears every light in this forsaken home has been placed in this room. Somehow, its the worst room you've ever seen. It's a young kids birthday party! They spotted you! You run but the had trips you! Suddenly you're surrounded by a Pizza drivers worst nightmare... hungry kids. Like a pack of wolves, the devoure you!");
-      Room crazyMan = new Room("laughing room", "Immediately as the door opens, water begins pouring out and flooding the hallway. It smells awful. At first there doesnt seem to be a source to the laughter. But suddenly, a figure rises from a pool of water in the center of the room. It's a birthday clown. He appears to have been attacked by some pack of wolves! He quickly runs and jumps out a window, sreaming wildly.");
+      Room crazyMan = new Room("laughing room", "Immediately as the door opens, water begins pouring out and flooding the hallway. It smells awful. At first there doesn't seem to be a source to the laughter. But suddenly, a figure rises from a pool of water in the center of the room. It's a birthday clown. He appears to have been attacked by some pack of wolves! He quickly runs and jumps out a window, sreaming wildly.");
       Room endHall = new Room("end of hallway", "At the end of a hallway is a door with a mirror. Foolishly you look into the mirror. In it, you notice a tall, boney woman standing at the top of the stairs. Shes looking straight at you. Her eyes open wider than you thought possible. Shes brandishing an old rusty knife. To your left and right are two doors. To the right a seemingly normal door. To the left, is a slightly cracked open door, inside you chains, knives, and hooks hanging on the wall.");
       Room backHall = new Room("go back to stairs", "Like a true hero, you turn to face the woman, but shes gone... cause obviously... The door now behind you swings open and the woman you saw before jams the knife into you. As the world goes dim, you watch helplessly as she takes the pizza.");
       Room leftDoor = new Room("clock room", "You open the door to find a room full of clocks... The ticking is maddening... The clocks are hard to read because your intellect is low. Something seems off about this room... It's dark and hard to see. One clock stands out though... If only you could read it.");
-      Room rightDoor = new Room("murder room", "As you might've guessed, this reeks of death. Outside door hear footsteps. You could grab a weapon, but those are against Domino's policy! Your only choice is to hide.");
+      Room rightDoor = new Room("murder room", "As you might've guessed, this reeks of death. Outside door hear footsteps. You could grab a weapon, but those are against Domino's policy! Your only choice is to hide. You can see a desk covered in blood that you could hide under.");
       Room underDesk = new Room("under desk", "Under the desk you can only see a couple inches off the floor. A figure walks in, but you can only see their bare, grey feet... They wait some time before leaving.");
       Room playDead = new Room("play dead", "A drop to the floor like a dead fish. The woman enters the room and looks at you for sometime. She then picks you up by the ankles and drags you off");
       Room continuePlayDead = new Room("keeping play dead", "She drags you into the mirrored door room. You can now see that it was not a mirror, but rather a window. She then chucks you onto a pile of bodies and leaves. You can follow her, but you also spot a dark smelly hole in the wall.");
       Room darkTunnel = new Room("dark tunnel", "You shuffle over the bodies into the dark tunnel. It's pitch black.");
-      Room escapeTunnel = new Room("escape tunnel", "You push on the crack. It bursts open sending you plummeting to the ground outside. You're free! Or so you thought. Now youre all alone in the woods. Your phone is dead. Out the corner of your eyes you spot him. Actual cannibal Shia LaBeouf is now following you at 30 feet back. He gets on all fours and begins sprinting. He's gaining on you!");
+      Room escapeTunnel = new Room("escape tunnel", "You push on the crack. It bursts open sending you plummeting to the ground outside. You're free! Or so you thought. Now you're all alone in the woods. Your phone is dead. Out the corner of your eyes you spot him. Actual cannibal Shia LaBeouf is now following you at 30 feet back. He gets on all fours and begins sprinting. He's gaining on you!");
       Room tunnelDoor = new Room("tunnel door", "You open the door. You walk in and find a empty table in an otherwise empty room. The door shuts behind you, but you didn't shut it! You turn to discover a soccer mom! She begins yelling! 'Its been over 30 minutes! My food should be free!'. You look at the ticket but notice its only been 25 minutes since she ordered!");
       Room standup = new Room("stand up for your self", "You puff your chest out and begin argue back. She can tell you're weak! She takes the pizza's from you. Your manager fires you for stealing food! You Lose!!!");
       Room cry = new Room("cry", "You drop to the floor and begin to weap. The woman takes the pizza's from you and helps you out of her house.");
       Room returnCar = new Room("return to car", "You make it safely back to your car. It starts up and you drive off... But somethings wrong! The ride is terribly rough. You hear a loud grinding noise. Just as the house disappears behind the trees, your car comes to a halt. You get out to discover your tires were shredded off. They must've been slashed! Out from the bushes appears the Domino's noid. Yes, that noid. He does not tolerate failed deliveries. You're never heard from again.");
+      Room followClown = new Room("out the window", "Like a loon, you jump out the window chasing after the clown. The follow it for sometime till you realize the clown is gone and you're all alone in the woods. Your phone is dead. Out the corner of your eyes you spot him. Actual cannibal Shia LaBeouf is now following you at 30 feet back. He gets on all fours and begins sprinting. He's gaining on you!");
+      Room lastDoor = new Room("last door", "You open the door only to realize it was not a mirror, but rather a window. The old woman is standing on the other side. She draws her knife and quickly stabs you. As the world dims you watch as she walks off with your pizza, unable to stop her.");
+      Room faceLady = new Room("fight old woman", "You go to turn when the woman grabs you from behind and sinks her rusty knife into your back. It's a sharp warm pain. You drop to the floor. As the world dims you watch as she walks off with your pizza, unable to stop her.");
+      Room endTunnel = new Room("tunnel end", "You reach the end of the dark tunnel. You can make out 3-digit combo lock. But whats the combo?");
+
 
       AddRooms();
       BuildExits();
@@ -111,51 +116,63 @@ namespace CastleGrimtol.Project
         Rooms.Add(standup);
         Rooms.Add(cry);
         Rooms.Add(returnCar);
+        Rooms.Add(followClown);
+        Rooms.Add(lastDoor);
+        Rooms.Add(faceLady);
+        Rooms.Add(endTunnel);
       }
 
       void BuildExits()
       {
         knock.AddExit("knock", frontDoor);
         knock.AddExit("return to car", returnCar);
-        frontDoor.AddExit("reurn to car", returnCar);
+        frontDoor.AddExit("return to car", returnCar);
         frontDoor.AddExit("enter house", enterance);
         enterance.AddExit("dark hallway", darkHall);
         enterance.AddExit("upstairs", upStairs);
         enterance.AddExit("door to right", emptyRoom);
-        enterance.AddExit("reurn to car", returnCar);
+        enterance.AddExit("return to car", returnCar);
         darkHall.AddExit("second door", shia);
         darkHall.AddExit("first door", puzzle);
         darkHall.AddExit("return to enterance", enterance);
         shia.AddExit("second room", shia2);
         shia.AddExit("back", darkHall);
-        shia2.AddExit("in room", shia3);
+        shia2.AddExit("enter room", shia3);
         shia2.AddExit("back", shiaDeath);
         puzzle.AddExit("back", darkHall);
-        puzzleWrong.AddExit("across", chasmRoom);
+        puzzleWrong.AddExit("cross", chasmRoom);
         chasmRoom.AddExit("left door", choiceRoom);
         chasmRoom.AddExit("right door", returnHall);
         choiceRoom.AddExit("back", chasmRoom2);
         returnHall.AddExit("back", enterance);
-returnHall
-emptyRoom
-upStairs
-scratchingRoom
-approachArm
-takeEnvelope
-partyRoom
-crazyMan
-endHall
-backHall
-leftDoor
-rightDoor
-underDesk
-playDead
-continuePlayDead
-darkTunnel
-escapeTunnel
-tunnelDoor
-standup
-cry
+        emptyRoom.AddExit("back", enterance);
+        upStairs.AddExit("back", enterance);
+        upStairs.AddExit("left", crazyMan);
+        upStairs.AddExit("right", scratchingRoom);
+        upStairs.AddExit("down hallway", endHall);
+        crazyMan.AddExit("back", upStairs);
+        crazyMan.AddExit("after clown", followClown);
+        scratchingRoom.AddExit("back", upStairs);
+        scratchingRoom.AddExit("towards arm", approachArm);
+        approachArm.AddExit("back", upStairs);
+        takeEnvelope.AddExit("to party room", partyRoom);
+        takeEnvelope.AddExit("back", upStairs);
+        endHall.AddExit("left", leftDoor);
+        endHall.AddExit("right", rightDoor);
+        endHall.AddExit("back", backHall);
+        endHall.AddExit("forward", lastDoor);
+        rightDoor.AddExit("under table", underDesk);
+        rightDoor.AddExit("play dead", playDead);
+        leftDoor.AddExit("back", backHall);
+        playDead.AddExit("fight", faceLady);
+        playDead.AddExit("contine playing dead", continuePlayDead);
+        continuePlayDead.AddExit("after woman", faceLady);
+        continuePlayDead.AddExit("toward tunnel", darkTunnel);
+        darkTunnel.AddExit("back", faceLady);
+        darkTunnel.AddExit("foward", endTunnel);
+        endTunnel.AddExit("back", faceLady);
+        tunnelDoor.AddExit("fight back", standup);
+        tunnelDoor.AddExit("cry", cry);
       }
     }
   }
