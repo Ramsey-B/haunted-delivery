@@ -101,7 +101,8 @@ namespace CastleGrimtol.Project
       else {
         if(itemChoice.Name == "flashlight" || itemChoice.Name == "glasses" && CurrentRoom.Name == "choice room") {
           CurrentPlayer.Inventory.Add(itemChoice);
-          Console.WriteLine("You pick up the flashlight, but the board shifts. The glasses slide off into the dark!");
+          string otherItem = itemChoice.Name == "flashlight" ? "glasses" : "flashlight";
+          Console.WriteLine("You pick up the "+itemChoice.Name+", but the board shifts. The "+otherItem+" tumble off into the dark!");
           CurrentRoom.Items.RemoveAll(item => {
             return item.Name == "flashlight" || item.Name == "glasses";
             });
@@ -115,7 +116,49 @@ namespace CastleGrimtol.Project
     }
     public void UseItem(string itemName)
     {
-
+      Item choice = CurrentPlayer.Inventory.Find(item => {
+        return item.Name == itemName;
+      });
+      if(choice.Name == "shia labeouf" && CurrentRoom.Name == "tunnel door")
+      {
+        Console.Clear();
+        Console.WriteLine("You begin to sob uncontrollably! Seeing this, Shia Labeouf springs to action! He sprints to and begins screaming at you 'Just do it!!!' His motivation gives you the confidence you need! You begin yelling back at the lady! Things are going great... Till suddenly Shia takes an axe to the woman... He definitely just murdered the woman... The two of you leave and actual murders Shia Labeouf and his trust accomplice" +CurrentPlayer.Name+ "ride off into the sunset! You Win!!!");
+        CurrentPlayer.Inventory.Remove(choice);
+        Playing = false;
+      }
+      else if(choice.Name == "flashlight" && CurrentRoom.Name == "dark tunnel")
+      {
+        Console.Clear();
+        Console.WriteLine("The tunnel brightens! Though you kind of wish it didn't... There's dismembered body's and blood everywhere! But you notice a crack in the wall that looks like a way out!");
+        CurrentRoom.AddExit("escape tunnel", Rooms[32]);
+        CurrentPlayer.Inventory.Remove(choice);
+      }
+      else if(choice.Name == "glasses" && CurrentRoom.Name == "clock room")
+      {
+        Console.Clear();
+        Console.WriteLine("You put on the glasses. At first things are blurry, but you feel your perception rise. One clock stands out more than the rest... It's a digital clock where the numbers decend slowly down as time continues. But you notice the time is not changing, It's stuck on 1:58...");
+        CurrentPlayer.Inventory.Remove(choice);
+      }
+      else if(choice != null)
+      {
+        Console.Clear();
+        if(choice.Name == "shia labeouf")
+        {
+          Console.WriteLine("You see him out the corner of you eye following about 30 feet back. He's down on all fours, but it's not his time yet");
+        } else if (choice.Name == "flashlight")
+        {
+          Console.WriteLine("It turns on, but you turn it off quickly feeling as though it maybe be more useful later...");
+        } else if(choice.Name == "glasses")
+        {
+          Console.WriteLine("You put them on and struggle to see. Obviously... Why would they be your prescription??? You do feel as though your perception rises... Maybe that could be useful.");
+        } else if (choice.Name == "envelope")
+        {
+          Console.WriteLine("You open the envelope to find 86 cents in assorted coins. Who tips in change?");
+        }
+      }
+      else {
+        Console.WriteLine("You take the " +choice.Name+ " and place it in your mouth... weird...");
+      }
     }
 
     public void CreateRooms()
@@ -145,7 +188,7 @@ namespace CastleGrimtol.Project
       Room crazyMan = new Room("laughing room", "Immediately as the door opens, water begins pouring out and flooding the hallway. It smells awful. At first there doesn't seem to be a source to the laughter. But suddenly, a figure rises from a pool of water in the center of the room. It's a birthday clown. He appears to have been attacked by some pack of wolves! He quickly runs and jumps out a window, sreaming wildly.");
       Room endHall = new Room("end of hallway", "At the end of a hallway is a door with a mirror. Foolishly you look into the mirror. In it, you notice a tall, boney woman standing at the top of the stairs. Shes looking straight at you. Her eyes open wider than you thought possible. Shes brandishing an old rusty knife. To your left and right are two doors. To the right a seemingly normal door. To the left, is a slightly cracked open door, inside you chains, knives, and hooks hanging on the wall.");
       Room backHall = new Room("go back to stairs", "Like a true hero, you turn to face the woman, but shes gone... cause obviously... The door now behind you swings open and the woman you saw before jams the knife into you. As the world goes dim, you watch helplessly as she takes the pizza.");
-      Room leftDoor = new Room("clock room", "You open the door to find a room full of clocks... The ticking is maddening... The clocks are hard to read because your intellect is low. Something seems off about this room... It's dark and hard to see. One clock stands out though... If only you could read it.");
+      Room leftDoor = new Room("clock room", "You open the door to find a room full of clocks... The ticking is maddening... The clocks are hard to read. Something seems off about this room...");
       Room rightDoor = new Room("murder room", "As you might've guessed, this reeks of death. Outside door hear footsteps. You could grab a weapon, but those are against Domino's policy! Your only choice is to hide. You can see a desk covered in blood that you could hide under.");
       Room underDesk = new Room("under desk", "Under the desk you can only see a couple inches off the floor. A figure walks in, but you can only see their bare, grey feet... They wait some time before leaving.");
       Room playDead = new Room("play dead", "A drop to the floor like a dead fish. The woman enters the room and looks at you for sometime. She then picks you up by the ankles and drags you off");
