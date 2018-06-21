@@ -17,6 +17,7 @@ namespace CastleGrimtol.Project
 
     public void Setup()
     {
+      Console.Clear();
       CreateRooms();
       CurrentRoom = Rooms[0];
       Console.WriteLine("Welcome to Domino's!");
@@ -86,10 +87,7 @@ namespace CastleGrimtol.Project
           {
             return r.Name == "puzzle right";
           });
-          Console.WriteLine(room.Description);
-          Console.WriteLine("You lose!");
-
-          Playing = false;
+          CurrentRoom = room;
         }
         else
         {
@@ -136,6 +134,16 @@ namespace CastleGrimtol.Project
         case "under desk":
           Console.Clear();
           Console.WriteLine(CurrentRoom.Description);
+          Console.WriteLine(@"
+            ________________________________________________________________________________________
+            |                                                                                      |
+            |   @       @     @  @     @       @       @           @  @      @ @ @   @ @ @   @     |
+            |     @   @     @      @   @       @       @         @      @   @        @       @     |
+            |       @       @      @   @       @       @         @      @     @ @    @ @ @   @     |
+            |       @       @      @   @       @       @         @      @         @  @             |
+            |       @         @  @       @ @ @         @ @ @ @     @  @      @ @ @   @ @ @   @     |
+            |______________________________________________________________________________________|
+          ");
           Playing = false;
           break;
       }
@@ -181,6 +189,16 @@ namespace CastleGrimtol.Project
           Console.Clear();
           Console.WriteLine("You begin to sob uncontrollably! Seeing this, Shia Labeouf springs to action! He sprints to and begins screaming at you 'Just do it!!!' His motivation gives you the confidence you need! You begin yelling back at the lady! Things are going great... Till suddenly Shia takes an axe to the woman... Oh my god! He definitely just murdered that woman... The two of you leave. Actual murders Shia Labeouf and his trusty accomplice " + CurrentPlayer.Name + " ride off into the sunset! You Win!!!");
           CurrentPlayer.Inventory.Remove(choice);
+          Console.WriteLine(@"
+            _________________________________________________________________________________
+            |                                                                               |
+            |   @       @     @  @     @       @       @             @   @   @     @   @    |
+            |     @   @     @      @   @       @        @     @     @    @   @ @   @   @    |
+            |       @       @      @   @       @         @   @ @   @     @   @  @  @   @    |
+            |       @       @      @   @       @          @ @   @ @      @   @   @ @        |
+            |       @         @  @       @ @ @             @     @       @   @     @   @    |
+            |_______________________________________________________________________________|
+          ");
           Playing = false;
         }
         else if (choice.Name == "flashlight" && CurrentRoom.Name == "dark tunnel")
@@ -252,13 +270,13 @@ namespace CastleGrimtol.Project
       Room backHall = new Room("go back to stairs", "Like a true hero, you turn to face the woman, but shes gone... cause obviously... The door now behind you swings open and the woman you saw before jams the knife into you. As the world goes dim, you watch helplessly as she takes the pizza.");
       Room leftDoor = new Room("clock room", "You open the door to find a room full of clocks... The ticking is maddening... The clocks are hard to read. Something seems off about this room...");
       Room rightDoor = new Room("murder room", "As you might've guessed, this reeks of death. Outside door hear footsteps. You could grab a weapon, but those are against Domino's policy! Your only choice is to hide. You can see a desk covered in blood that you could hide under.");
-      Room underDesk = new Room("under desk", "Under the desk you can only see a couple inches off the floor. A figure walks in, but you can only see their bare, grey feet... They wait some time before leaving... You get out and suddenly the door swings open, it's the woman. She charges at you and stabs you with her knife. As the world goes dim, you watch as she takes the pizza's. You Lose!!!");
+      Room underDesk = new Room("under desk", "Under the desk you can only see a couple inches off the floor. A figure walks in, but you can only see their bare, grey feet... They wait some time before leaving... You get out and suddenly the door swings open, it's the woman. She charges at you and stabs you with her knife. As the world goes dim, you watch as she takes the pizza's.");
       Room playDead = new Room("play dead", "A drop to the floor like a dead fish. The woman enters the room and looks at you for sometime. She then picks you up by the ankles and drags you off");
       Room continuePlayDead = new Room("keeping play dead", "She drags you into the mirrored door room. You can now see that it was not a mirror, but rather a window. She then chucks you onto a pile of bodies and leaves. You can follow her, but you also spot a dark smelly hole in the wall.");
       Room darkTunnel = new Room("dark tunnel", "You shuffle over the bodies into the dark tunnel. It's pitch black.");
       Room escapeTunnel = new Room("escape tunnel", "You push on the crack. It bursts open sending you plummeting to the ground outside. You're free! Or so you thought. Now you're all alone in the woods. Your phone is dead. Out the corner of your eyes you spot him. Actual cannibal Shia LaBeouf is now following you at 30 feet back. He gets on all fours and begins sprinting. He's gaining on you!");
       Room tunnelDoor = new Room("tunnel door", "You open the door. You walk in and find a empty table in an otherwise empty room. The door shuts behind you, but you didn't shut it! You turn to discover a soccer mom! She begins yelling! 'Its been over 30 minutes! My food should be free!'. You look at the ticket but notice its only been 25 minutes since she ordered!");
-      Room standup = new Room("stand up for your self", "You puff your chest out and begin argue back. She can tell you're weak! She takes the pizza's from you. Your manager fires you for stealing food! You Lose!!!");
+      Room standup = new Room("stand up for your self", "You puff your chest out and begin argue back. She can tell you're weak! She takes the pizza's from you. Your manager fires you for stealing food!");
       Room cry = new Room("cry", "You drop to the floor and begin to weap. The woman takes the pizza's from you and helps you out of her house.");
       Room returnCar = new Room("return to car", "You make it safely back to your car. It starts up and you drive off... But somethings wrong! The ride is terribly rough. You hear a loud grinding noise. Just as the house disappears behind the trees, your car comes to a halt. You get out to discover your tires were shredded off. They must've been slashed! Out from the bushes appears the Domino's noid. Yes, that noid. He does not tolerate failed deliveries. You're never heard from again.");
       Room followClown = new Room("out the window", "Like a loon, you jump out the window chasing after the clown. The follow it for sometime till you realize the clown is gone and you're all alone in the woods. Your phone is dead. Out the corner of your eyes you spot him. Actual cannibal Shia LaBeouf is now following you at 30 feet back. He gets on all fours and begins sprinting. He's gaining on you!");
