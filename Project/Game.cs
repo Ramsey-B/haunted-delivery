@@ -48,9 +48,12 @@ namespace CastleGrimtol.Project
     public string UserInput()
     {
       Console.WriteLine("What do you do?");
-      if(CurrentRoom.Name == "puzzle room" || CurrentRoom.Name == "tunnel end") {
+      if (CurrentRoom.Name == "puzzle room" || CurrentRoom.Name == "tunnel end")
+      {
         Console.WriteLine("Answer the puzzle or turn back: ");
-      } else {
+      }
+      else
+      {
         Console.WriteLine("Choices: ");
       }
       foreach (string key in CurrentRoom.Exits.Keys)
@@ -64,9 +67,9 @@ namespace CastleGrimtol.Project
     public void CheckChoice(string query)
     {
       string input = "";
-      foreach(string key in CurrentRoom.Exits.Keys)
+      foreach (string key in CurrentRoom.Exits.Keys)
       {
-        if(key.Contains(query))
+        if (key.Contains(query))
         {
           input += key;
         }
@@ -77,7 +80,7 @@ namespace CastleGrimtol.Project
       }
       else if (CurrentRoom.Name == "puzzle room")
       {
-        if (input.Contains("hole"))
+        if (query.Contains("hole"))
         {
           Room room = Rooms.Find(r =>
           {
@@ -93,6 +96,18 @@ namespace CastleGrimtol.Project
           CurrentRoom = Rooms[11];
         }
       }
+      else if (CurrentRoom.Name == "tunnel end")
+      {
+        if (query == "158" || query == "1:58" || query == "two to two")
+        {
+          Console.WriteLine("The lock pops open!");
+          CurrentRoom.Exits.Add("2) enter", Rooms[33]);
+        }
+        else
+        {
+          Console.WriteLine("It didn't work this--- TIME");
+        }
+      }
       else
       {
         Console.Clear();
@@ -102,11 +117,27 @@ namespace CastleGrimtol.Project
 
     public void CheckRoom()
     {
-      if (CurrentRoom.Name == "look at shia")
+      switch (CurrentRoom.Name)
       {
-        Item shiaLabeouf = new Item("shia labeouf", "He's following you about thirty feet back. It's actual cannibal Shia Labeouf, and he's brandishing a knife.");
-        CurrentPlayer.Inventory.Add(shiaLabeouf);
-        Rooms[4].Exits.Remove("second door");
+        case "look at shia":
+          Item shiaLabeouf = new Item("shia labeouf", "He's following you about thirty feet back. It's actual cannibal Shia Labeouf, and he's brandishing a knife.");
+          CurrentPlayer.Inventory.Add(shiaLabeouf);
+          Rooms[4].Exits.Remove("1) second door");
+          break;
+        case "out the window":
+        case "cry":
+        case "fight old woman":
+        case "last door":
+        case "return to car":
+        case "escape tunnel":
+        case "puzzle right":
+        case "stand up for your self":
+        case "party room":
+        case "under desk":
+          Console.Clear();
+          Console.WriteLine(CurrentRoom.Description);
+          Playing = false;
+          break;
       }
     }
 
@@ -148,7 +179,7 @@ namespace CastleGrimtol.Project
         if (choice.Name == "shia labeouf" && CurrentRoom.Name == "tunnel door")
         {
           Console.Clear();
-          Console.WriteLine("You begin to sob uncontrollably! Seeing this, Shia Labeouf springs to action! He sprints to and begins screaming at you 'Just do it!!!' His motivation gives you the confidence you need! You begin yelling back at the lady! Things are going great... Till suddenly Shia takes an axe to the woman... He definitely just murdered the woman... The two of you leave and actual murders Shia Labeouf and his trust accomplice" + CurrentPlayer.Name + "ride off into the sunset! You Win!!!");
+          Console.WriteLine("You begin to sob uncontrollably! Seeing this, Shia Labeouf springs to action! He sprints to and begins screaming at you 'Just do it!!!' His motivation gives you the confidence you need! You begin yelling back at the lady! Things are going great... Till suddenly Shia takes an axe to the woman... Oh my god! He definitely just murdered that woman... The two of you leave. Actual murders Shia Labeouf and his trusty accomplice " + CurrentPlayer.Name + " ride off into the sunset! You Win!!!");
           CurrentPlayer.Inventory.Remove(choice);
           Playing = false;
         }
@@ -156,7 +187,7 @@ namespace CastleGrimtol.Project
         {
           Console.Clear();
           Console.WriteLine("The tunnel brightens! Though you kind of wish it didn't... There's dismembered body's and blood everywhere! But you notice a crack in the wall that looks like a way out!");
-          CurrentRoom.AddExit("escape tunnel", Rooms[32]);
+          CurrentRoom.AddExit("3) escape tunnel", Rooms[32]);
           CurrentPlayer.Inventory.Remove(choice);
         }
         else if (choice.Name == "glasses" && CurrentRoom.Name == "clock room")
@@ -214,14 +245,14 @@ namespace CastleGrimtol.Project
       Room upStairs = new Room("upstairs", "At the top of the old creeky stairs you find a long dark hallway. To your left is a door that you can hear the giggles madman. The door to the right you hear an ominous scratching sound.");
       Room scratchingRoom = new Room("scratching room", "You enter the room. It's dark and dusty but you can make out what appears to be an arm! You now realize the scratching noise is the the arm clawing at the floor boards!");
       Room approachArm = new Room("approach arm", "As you approach the arm you know see its still attached to th torso under the floor boards! you cant make out what the person looks like, but you can now see that they're trying to give you can envelope!");
-      Room takeEnvelope = new Room("take envelope", "You turn to leave but the hand grabs you! You stop and look. It then begins pointing frantically at another door! The door is covered in streamers and balloons. How did you miss it?");
+      Room takeEnvelope = new Room("leave arm", "You turn to leave but the hand grabs you! You stop and look. It then begins pointing frantically at another door! The door is covered in streamers and balloons. How did you miss it?");
       Room partyRoom = new Room("party room", "You open the door and are hit with a blinding light. Heaven? No. It appears every light in this forsaken home has been placed in this room. Somehow, its the worst room you've ever seen. It's a young kids birthday party! They spotted you! You run but the had trips you! Suddenly you're surrounded by a Pizza drivers worst nightmare... hungry kids. Like a pack of wolves, the devoure you!");
       Room crazyMan = new Room("laughing room", "Immediately as the door opens, water begins pouring out and flooding the hallway. It smells awful. At first there doesn't seem to be a source to the laughter. But suddenly, a figure rises from a pool of water in the center of the room. It's a birthday clown. He appears to have been attacked by some pack of wolves! He quickly runs and jumps out a window, sreaming wildly.");
       Room endHall = new Room("end of hallway", "At the end of a hallway is a door with a mirror. Foolishly you look into the mirror. In it, you notice a tall, boney woman standing at the top of the stairs. Shes looking straight at you. Her eyes open wider than you thought possible. Shes brandishing an old rusty knife. To your left and right are two doors. To the right a seemingly normal door. To the left, is a slightly cracked open door, inside you chains, knives, and hooks hanging on the wall.");
       Room backHall = new Room("go back to stairs", "Like a true hero, you turn to face the woman, but shes gone... cause obviously... The door now behind you swings open and the woman you saw before jams the knife into you. As the world goes dim, you watch helplessly as she takes the pizza.");
       Room leftDoor = new Room("clock room", "You open the door to find a room full of clocks... The ticking is maddening... The clocks are hard to read. Something seems off about this room...");
       Room rightDoor = new Room("murder room", "As you might've guessed, this reeks of death. Outside door hear footsteps. You could grab a weapon, but those are against Domino's policy! Your only choice is to hide. You can see a desk covered in blood that you could hide under.");
-      Room underDesk = new Room("under desk", "Under the desk you can only see a couple inches off the floor. A figure walks in, but you can only see their bare, grey feet... They wait some time before leaving.");
+      Room underDesk = new Room("under desk", "Under the desk you can only see a couple inches off the floor. A figure walks in, but you can only see their bare, grey feet... They wait some time before leaving... You get out and suddenly the door swings open, it's the woman. She charges at you and stabs you with her knife. As the world goes dim, you watch as she takes the pizza's. You Lose!!!");
       Room playDead = new Room("play dead", "A drop to the floor like a dead fish. The woman enters the room and looks at you for sometime. She then picks you up by the ankles and drags you off");
       Room continuePlayDead = new Room("keeping play dead", "She drags you into the mirrored door room. You can now see that it was not a mirror, but rather a window. She then chucks you onto a pile of bodies and leaves. You can follow her, but you also spot a dark smelly hole in the wall.");
       Room darkTunnel = new Room("dark tunnel", "You shuffle over the bodies into the dark tunnel. It's pitch black.");
@@ -321,7 +352,7 @@ namespace CastleGrimtol.Project
         crazyMan.AddExit("2) after clown", followClown);
         scratchingRoom.AddExit("1) back", upStairs);
         scratchingRoom.AddExit("2) towards arm", approachArm);
-        approachArm.AddExit("1) back", upStairs);
+        approachArm.AddExit("1) back", takeEnvelope);
         takeEnvelope.AddExit("1) to party room", partyRoom);
         takeEnvelope.AddExit("2) back", upStairs);
         endHall.AddExit("1) left", leftDoor);
