@@ -12,7 +12,7 @@ namespace CastleGrimtol.Project
     public void Setup()
     {
       Console.BackgroundColor = ConsoleColor.Black;
-      Console.ForegroundColor = ConsoleColor.Green;
+      Console.ForegroundColor = ConsoleColor.White;
       CreateRooms();
       CurrentRoom = Rooms[0];
       Console.WriteLine("Welcome to Domino's!");
@@ -131,6 +131,7 @@ namespace CastleGrimtol.Project
         case "leave mystery room":
           Console.Clear();
           Console.WriteLine(CurrentRoom.Description);
+          Console.ForegroundColor = ConsoleColor.Yellow;
           Console.WriteLine(@"
             ________________________________________________________________________________________
             |                                                                                      |
@@ -186,6 +187,7 @@ namespace CastleGrimtol.Project
           Console.Clear();
           Console.WriteLine("You begin to sob uncontrollably! Seeing this, Shia Labeouf springs to action! He sprints to and begins screaming at you 'Just do it!!!' His motivation gives you the confidence you need! You begin yelling back at the lady! Things are going great... Till suddenly Shia takes an axe to the woman... Oh my god! He definitely just murdered that woman... The two of you leave. Actual murders Shia Labeouf and his trusty accomplice " + CurrentPlayer.Name + " ride off into the sunset! You Win!!!");
           CurrentPlayer.Inventory.Remove(choice);
+          Console.ForegroundColor = ConsoleColor.Yellow;
           Console.WriteLine(@"
             _________________________________________________________________________________
             |                                                                               |
