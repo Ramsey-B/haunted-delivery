@@ -22,13 +22,15 @@ namespace CastleGrimtol
         }
         else if (userAction[0] == "h" || userAction[0] == "help")
         {
+          Console.Clear();
           Console.WriteLine("Look around room: l or look");
           Console.WriteLine("Take item: t or take");
           Console.WriteLine("View inventory: i or inventory");
           Console.WriteLine("Use item: u or use");
           Console.WriteLine("Quit: q or quit");
+          Console.WriteLine("To get a cheat: c or cheat");
           Console.WriteLine("Select choice: enter number or name of choice");
-          Console.WriteLine("To answer puzzles, simple type and enter your answer.");
+          Console.WriteLine("To answer puzzles, simple type and enter your answer. \n");
         }
         else if (userAction[0] == "t" || userAction[0] == "take")
         {
@@ -45,8 +47,9 @@ namespace CastleGrimtol
           Console.WriteLine("Inventory: ");
           game.CurrentPlayer.Inventory.ForEach(item =>
           {
-            Console.WriteLine(item.Name);
+            Console.WriteLine(item.Name+ ":" +" " +item.Description);
           });
+          Console.WriteLine();
         }
         else if (userAction[0] == "u" || userAction[0] == "use")
         {
@@ -67,6 +70,15 @@ namespace CastleGrimtol
             game.Playing = false;
           }
         }
+        else if (userAction[0] == "c" || userAction[0] == "cheat")
+        {
+          Console.Clear();
+          if (game.CurrentRoom.Cheat.Length > 0) {
+            Console.WriteLine("cheat: " +game.CurrentRoom.Cheat);
+          } else {
+            Console.WriteLine("Well... to late now...");
+          }
+        }
         else
         {
           Console.Clear();
@@ -84,6 +96,8 @@ namespace CastleGrimtol
           }
         }
       }
+      Console.Clear();
+      Console.ResetColor();
     }
   }
 }
